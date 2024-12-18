@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="description" content="Jogo da velha implementado na Célula de FUP 2021.2" />
+  <meta charset="utf-8">
+  <title>Célula de FUP 2021.2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Célula de FUP 2021.2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="caixinha">
+    <h2 id="titulo">👵 Joguindo da Velha 👵</h2>
+    <div class="placar">
+      <div>❌ <span id="pontos_x">0</span> x <span id="pontos_o">0</span> 🟠</div>
+      <button class="resetar_placar">RESETAR PLACAR</button>
+    </div>
+    <table>
+      <tr>
+        <td id="c1"></td>
+        <td id="c2"></td>
+        <td id="c3"></td>
+      </tr>
+      <tr>
+        <td id="c4"></td>
+        <td id="c5"></td>
+        <td id="c6"></td>
+      </tr>
+      <tr>
+        <td id="c7"></td>
+        <td id="c8"></td>
+        <td id="c9"></td>
+      </tr>
+    </table>
+
+    <button class="reiniciar" onclick="reiniciar()">REINICIAR</button>
+  </div>
+
+
+  <script>
+    var jogada = 0;
+    var pontos_x = 0;
+    var pontos_o = 0;
+
+    //document.onmousemove = function(e){document.getElementById('pontos_x').style.fontSize = e.x + "px";}
+    document.onmousemove = function(e){document.getElementById('titulo').style.transform = 'rotate(' + e.x*5 + 'deg)';}
+
+    function reiniciar() {
+      for (let i = 1; i <= 9; i++) {
+        const quadradin = "c" + i;
+        document.getElementById(quadradin).innerHTML = ''
+      }
+    }
+
+    function jogoAcabou() {
+      var c1 = document.getElementById("c1").innerHTML;
+      var c2 = document.getElementById("c2").innerHTML;
+      var c3 = document.getElementById("c3").innerHTML;
+      var c4 = document.getElementById("c4").innerHTML;
+      var c5 = document.getElementById("c5").innerHTML;
+      var c6 = document.getElementById("c6").innerHTML;
+      var c7 = document.getElementById("c7").innerHTML;
+      var c8 = document.getElementById("c8").innerHTML;
+      var c9 = document.getElementById("c9").innerHTML;
+
+      var tabuleiro = [[c1, c2, c3], [c4, c5, c6], [c7, c8, c9]];
+
+      for (let i = 0; i < 3; i++) {
+        let linhasIguais = true;
+        for (let j = 0; j < 2; j++) {
+          if (tabuleiro[i][j] != tabuleiro[i][j + 1] || tabuleiro[i][j] == '') {
+            linhasIguais = false;
+          }
+        }
+        if (linhasIguais) {
+          return true;
+        }
+      }
+
+      for (let i = 0; i < 3; i++) {
+        let colsIguais = true;
+        for (let j = 0; j < 2; j++) {
+          if (tabuleiro[j][i] != tabuleiro[j + 1][i] || tabuleiro[j][i] == '') {
+            colsIguais = false;
+          }
+        }
+        if (colsIguais) {
+          return true;
+        }
+      }
+
+      var diagPrincipIgual = true;
+      var diagSecondIgual = true;
+
+      for (let i = 0; i < 2; i++) {
+        if (tabuleiro[i][i] != tabuleiro[i + 1][i + 1] || tabuleiro[i][i] == '') {
+          diagPrincipIgual = false;
+        }
+      }
+
+      for (let i = 0; i < 2; i++) {
+        if (tabuleiro[i][2 - i] != tabuleiro[i + 1][2 - (i + 1)] || tabuleiro[i][2 - i] == '') {
+          diagSecondIgual = false;
+        }
+      }
+
+      if (diagPrincipIgual || diagSecondIgual) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function marcarPosicao(quadradin) {
+      if (document.getElementById(quadradin).innerHTML == '') {
+        if (jogada % 2 == 0) {
+          document.getElementById(quadradin).innerHTML = '❌';
+        } else {
+          document.getElementById(quadradin).innerHTML = '🟠';
+        }
+
+        jogada++;
+
+        if (jogoAcabou() && jogada != 9) {
+          const last = document.getElementById(quadradin).innerHTML;
+          alert("Jogo acabou! Vencedor foi " + last);
+
+          if (last === '❌') {
+            pontos_x++;
+          } else {
+            pontos_o++;
+          }
+
+          document.getElementById('pontos_x').innerHTML = pontos_x;
+          document.getElementById('pontos_o').innerHTML = pontos_o;
+
+          jogada = 0;
+        }
+        else if (jogada == 9) {
+          alert("Deu velha 👵 😔")
+          jogada = 0;
+        }
+      } else {
+        alert("Escolha outra opção!");
+      }
+    }
+
+    for (let i = 1; i <= 9; i++) {
+      const quadradin = "c" + i;
+      document.getElementById(quadradin).onclick = function () {
+        marcarPosicao(quadradin);
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

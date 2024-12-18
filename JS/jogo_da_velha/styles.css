@@ -1,0 +1,71 @@
+.caixinha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  height: 100vh;
+}
+
+td {
+  width: 80px;
+  height: 80px;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 32px;
+}
+
+td:hover {
+  cursor: pointer;
+}
+
+.placar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 70%;
+  gap: 16px;
+}
+
+.reiniciar {
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  background-color: goldenrod;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  font-family: 'Mochiy Pop P One', sans-serif;
+}
+
+.resetar_placar {
+  font-family: 'Mochiy Pop P One', sans-serif;
+  background-color: goldenrod;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-size: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+button:hover {
+  background-color: green;
+}
+
+h2 {
+  font-family: 'Mochiy Pop P One', sans-serif;
+  transform: rotate(-5deg);
+}
+
+.placar {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-family: 'Mochiy Pop P One', sans-serif;
+}
